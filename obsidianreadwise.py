@@ -36,18 +36,24 @@ def identMDFiles():
 
 def extractText(mdFiles):
     for i in mdFiles:
-        start = '#readwisestart'
-        end = '#readwiseend'
+        # Tag identification for text extract
+        start = '#startreadwise'
+        end = '#endreadwise'
         startLength = len(start)+1
-        endLength = len(end)+3
+        # endLength = len(end)+3
         openFile = open(i, 'r', encoding='utf8').read()
         # print(openFile)
+        # Search for tag indices in text files
         startIndices = [s for s in range(len(openFile)) if openFile.startswith(start, s)]
         endIndices = [s for s in range(len(openFile)) if openFile.startswith(end, s)]
+        # Loop to pull text from between tag indices and write to file
         for (s,e) in zip(startIndices,endIndices):
             # print(s,e)
             readwiseText = openFile[s+startLength:e-1]
-            print(readwiseText)
+            newFile = open('C:/Users/aduckworth/iCloudDrive/Python Projects/ObsidianReadwise/readwisepost.txt', 'a')
+            newFile.write(readwiseText + '\n')
+            newFile.close()
+            # print(readwiseText)
         # print(str(startIndices))
         # print(str(endIndices))
         # print(readwiseText)
