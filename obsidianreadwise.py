@@ -1,6 +1,7 @@
 import os
 import sys
 import itertools
+import requests
 
 def identMDFiles():
     # Identify operating system
@@ -50,12 +51,19 @@ def extractText(mdFiles):
         for (s,e) in zip(startIndices,endIndices):
             # print(s,e)
             readwiseText = openFile[s+startLength:e-1]
-            newFile = open('C:/Users/aduckworth/iCloudDrive/Python Projects/ObsidianReadwise/readwisepost.txt', 'a')
-            newFile.write(readwiseText + '\n')
-            newFile.close()
-            # print(readwiseText)
-        # print(str(startIndices))
-        # print(str(endIndices))
-        # print(readwiseText)
+            requests.post(
+            url="https://readwise.io/api/v2/highlights/",
+            headers={"Authorization": "Token KbPIhgmlKd0lKszq6Df8VZ1n7yDbUeIWwEkdVDpr1zOUOIc6ga"},
+            json={
+                "highlights": [{
+                    "text": readwiseText,
+                    "title": "Daily Notes for Review",
+                    "author": "Andy Duckworth",
+                    "source_type": "book",
+                    "location_type": "page",
+                    "location": 3
+                    }]
+                }
+            )
 
 identMDFiles()
