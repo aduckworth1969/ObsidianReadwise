@@ -2,6 +2,10 @@ import os
 import sys
 import itertools
 import requests
+from dotenv import load_dotenv
+
+load_dotenv()
+apiToken = os.getenv('apiToken')
 
 def identMDFiles():
     # Identify operating system
@@ -53,7 +57,7 @@ def extractText(mdFiles):
             readwiseText = openFile[s+startLength:e-1]
             requests.post(
             url="https://readwise.io/api/v2/highlights/",
-            headers={"Authorization": "Token KbPIhgmlKd0lKszq6Df8VZ1n7yDbUeIWwEkdVDpr1zOUOIc6ga"},
+            headers={"Authorization": apiToken},
             json={
                 "highlights": [{
                     "text": readwiseText,
