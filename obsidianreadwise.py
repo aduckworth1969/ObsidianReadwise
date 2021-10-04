@@ -14,7 +14,7 @@ def identMDFiles():
 
     # Change directory to Obsidian notes based on operating system
     if opSys == 'win32':
-        os.chdir('C:/Users/aduckworth/OneDrive - SBCTC/Documents/Daily Notes')
+        os.chdir('C:/Users/aduckworth/OneDrive - SBCTC/Documents/Daily Notes/Second Brain/Second Brain')
     elif opSys == 'darwin':
         os.chdir('/Users/aduckworth/Library/Mobile Documents/iCloud~md~obsidian/Documents/Daily Notes')
     else:
