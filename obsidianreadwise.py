@@ -16,7 +16,7 @@ def identMDFiles():
     if opSys == 'win32':
         os.chdir('C:/Users/aduckworth/OneDrive - SBCTC/Documents/Daily Notes/Second Brain/Second Brain/')
     elif opSys == 'darwin':
-        os.chdir('/Users/aduckworth/Library/Mobile Documents/iCloud~md~obsidian/Documents/Daily Notes')
+        os.chdir('/Users/andyduckworth/Documents/Documents - Andy’s MacBook Air/Second Brain/Second Brain/Slip Box')
     else:
         pass
     # print(os.getcwd())
@@ -35,9 +35,9 @@ def identMDFiles():
         else:
             pass
 
-    # print(mdFiles)
+    print(mdFiles)
 
-    extractText(mdFiles)
+    # extractText(mdFiles)
 
 def extractText(mdFiles):
     for i in mdFiles:
