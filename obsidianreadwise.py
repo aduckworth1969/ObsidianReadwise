@@ -16,7 +16,7 @@ def identMDFiles():
     if opSys == 'win32':
         os.chdir('C:/Users/aduckworth/OneDrive - SBCTC/Documents/Daily Notes/Second Brain/Second Brain/')
     elif opSys == 'darwin':
-        os.chdir('/Users/andyduckworth/Documents/Documents - Andy’s MacBook Air/Second Brain/Second Brain/Slip Box')
+        os.chdir("/Users/andyduckworth/Documents/Documents - Andy’s MacBook Air/Second Brain/Second Brain/Slip Box")
     else:
         pass
     # print(os.getcwd())
@@ -35,33 +35,35 @@ def identMDFiles():
         else:
             pass
 
-    print(mdFiles)
+    # print(mdFiles)
 
-    # extractText(mdFiles)
+    loadProcessMdList(mdFiles)
 
-def extractText(mdFiles):
-    for i in mdFiles:
-        # Tag identification for text extract
-        start = '#startreadwise'
-        end = '#endreadwise'
-        startLength = len(start)+1
-        # endLength = len(end)+3
-        openFile = open(i, 'r', encoding='utf8').read()
-        # print(openFile)
-        # Search for tag indices in text files
-        startIndices = [s for s in range(len(openFile)) if openFile.startswith(start, s)]
-        endIndices = [s for s in range(len(openFile)) if openFile.startswith(end, s)]
-        # Loop to pull text from between tag indices and write to file
-        for (s,e) in zip(startIndices,endIndices):
-            # print(s,e)
-            readwiseText = openFile[s+startLength:e-1]
+def loadProcessMdList(mdFiles):
+    slipFile = open('/Users/andyduckworth/Library/Mobile Documents/com~apple~CloudDocs/Python Projects/ObsidianReadwise/slipbox.txt', 'r')
+    slipbox = slipFile.readlines()
+    slipboxList = [x[:-1] for x in slipbox]
+    slipFile.close()
+    missingFiles = list(set(mdFiles) - set(slipboxList))
+    
+    for item in missingFiles:
+        slipboxList.append(item)
+        slipFileAppend = open('/Users/andyduckworth/Library/Mobile Documents/com~apple~CloudDocs/Python Projects/ObsidianReadwise/slipbox.txt', 'a')
+        slipFileAppend.write(item + '\n')
+        slipFileAppend.close()
+   
+    extractText(missingFiles)
+
+def extractText(missingFiles):
+        for i in missingFiles:
+            openFile = open(i, 'r', encoding='utf8').read()
             requests.post(
             url="https://readwise.io/api/v2/highlights/",
             headers={"Authorization": apiToken},
             json={
                 "highlights": [{
-                    "text": readwiseText,
-                    "title": "Daily Notes for Review",
+                    "text": i + '\n' + openFile,
+                    "title": "Slip Box Review",
                     "author": "Andy Duckworth",
                     "source_type": "book",
                     "location_type": "page",
