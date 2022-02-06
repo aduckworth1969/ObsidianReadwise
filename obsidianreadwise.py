@@ -45,12 +45,14 @@ def loadProcessMdList(mdFiles):
     slipboxList = [x[:-1] for x in slipbox]
     slipFile.close()
     missingFiles = list(set(mdFiles) - set(slipboxList))
-    
+
+    slipFileAppend = open('/Users/andyduckworth/Library/Mobile Documents/com~apple~CloudDocs/Python Projects/ObsidianReadwise/slipbox.txt', 'a')
+
     for item in missingFiles:
         slipboxList.append(item)
-        slipFileAppend = open('/Users/andyduckworth/Library/Mobile Documents/com~apple~CloudDocs/Python Projects/ObsidianReadwise/slipbox.txt', 'a')
         slipFileAppend.write(item + '\n')
-        slipFileAppend.close()
+    
+    slipFileAppend.close()
    
     extractText(missingFiles)
 
