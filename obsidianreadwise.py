@@ -8,7 +8,6 @@ from dotenv import load_dotenv
 def main():
     load_dotenv()
 
-
     # Create a list of files in the current directory
     validDirectory = setCurrentDirectory()
     if validDirectory:
